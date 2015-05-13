@@ -16,7 +16,7 @@ def get_news_items(trendList):
         queryDatabase(hashtag)
     """
     
-    trends = ["#MIvsDD", "#WeLoveYouSalmanKhan", "#ABadDecisionIsWhen", "#PikuThisFriday", "Dawood", "Greenpeace India", "#WordsThatDontGetUsedEnough", "Simmons", "Tiger Shroff", "Nepal Earthquake"]
+    trends = ["#CSKvsRR", "#WeLoveYouSalmanKhan", "#ABadDecisionIsWhen", "#PikuThisFriday", "Dawood", "Greenpeace India", "#WordsThatDontGetUsedEnough", "Simmons", "Tiger Shroff", "Nepal Earthquake"]
     
     for w in trends:
         newsitems = queryDatabase(w)

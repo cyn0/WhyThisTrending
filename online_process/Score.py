@@ -40,7 +40,7 @@ def calculateScore(newsitems):
             newsitem.score = 0.0
 
         else:
-            score = 0
+            score = 0.0
             
             #article date
             score += (__max_age_of_article__ - delta.days) * __article_time__
