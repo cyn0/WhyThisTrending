@@ -25,7 +25,7 @@ Scoring is the most crucial process as there might be several articles containin
     + For example, in the last three days there might be several articles about Mr.Modi but we are interested in the `special event` that made the people to talk about him(here local scoring alone won't be helpful). Our assumption is that `special event` will be in the most number of articles.
     + [Algorithms of the Intelligent Web]
     
-#usage
+#Usage
 ###Offline process
 `scrapy crawl <spider_name>`
 
@@ -34,7 +34,7 @@ Scoring is the most crucial process as there might be several articles containin
 
 All settings parameters are optional.
 
-###Online proces
+###Online process
 `python WhyTheTrend.py`
 
 [Algorithms of the Intelligent Web]:http://www.amazon.in/Algorithms-Intelligent-Web-Haralambos-Marmanis/dp/1933988665
