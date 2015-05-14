@@ -6,6 +6,7 @@ The objective of `WhyThisTrending` project is to find why a particular term(hash
 
 #Example
 INPUT : **#WeLoveYouSalmanKhan**
+
 OUTPUT :
   - Bigg Boss 7: Fans show support for Salman Khan - Financial Express
   - Salman Khans bail justified or unusual? Lawyers divided over Bombay HC decision - Firstpost
