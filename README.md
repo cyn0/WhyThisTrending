@@ -2,7 +2,7 @@
 
 The objective of `WhyThisTrending` project is to find why a particular term(hash tag) is trending in the social media.
 
-**This project is in very intial stage of developement**
+**This project is in very intial stage of development**
 
 #Example
 **#WeLoveYouSalmanKhan**
@@ -14,7 +14,7 @@ The objective of `WhyThisTrending` project is to find why a particular term(hash
 Scrapy tool is used to crawl News sites to extract content and other information from the site. The extracted contents are stored in SQL database.
 
 ###Online process - Searching and scoring
-Trending keywords are retried from social media(Twitter, Google trends) and articles having those key-words are fetched.
+Trending keywords are retrieved from social media(Twitter, Google trends) and articles having those key-words are fetched.
 
 Scoring is the most crucial process as there might be several articles containing the key-words.
 
