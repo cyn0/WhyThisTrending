@@ -27,13 +27,33 @@ Scoring is the most crucial process as there might be several articles containin
     + Finding importance of an article across all the articles fetched.
     + For example, in the last three days there might be several articles about Mr.Modi but we are interested in the `special event` that made the people to talk about him(here local scoring alone won't be helpful). Our assumption is that `special event` will be in the most number of articles.
     + [Algorithms of the Intelligent Web]
+
+#Initial configurations
+###MongoDB
+Add your MongoDB params in *crawler/tutorial/settings.py* and to *online_process/Setting.py* file
+
+    #mongodb credentials
+    MONGO_URL = "mongodb://localhost:27017/"
+    MONGODB_NAME = "WhyThisTrend"
+    MONGODB_COLLECTION_NAME = "article"
+
+If your using twitter API to retrieve current trend, add your twitter keys to *online_process/Setting.py* file
     
+    CONSUMER_KEY = 'XXXX'
+    CONSUMER_SECRET ='YYYY'
+    OAUTH_TOKEN = 'ZZZZ'
+    OAUTH_TOKEN_SECRET = 'AAAA'
+
+
+
 #Usage
 ###Offline process
 To run all the spiders, run the run_spiders.sh file
+
 `source run_spiders.sh`
 
 or to run a particular spider
+
 `scrapy crawl <spider_name>`
 
 ***For example***
