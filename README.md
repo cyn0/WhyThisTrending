@@ -13,13 +13,14 @@ OUTPUT :
 
 #Methodology
 ###Offline process - Crawling
-Scrapy tool is used to crawl News sites to extract content and other information from the site. The extracted contents are stored in SQL database.
+Scrapy tool is used to crawl News sites to extract content and other information from the site. The extracted contents are stored in MongoDB.
 
 ###Online process - Searching and scoring
 Trending keywords are retrieved from social media(Twitter, Google trends) and articles having those key-words are fetched.
 
 Scoring is the most crucial process as there might be several articles containing the key-words.
-
+  * MongoDB scoring
+    + Text search is done for the keywords, and MongoDB returns document’s score associated with the text search.
   * Local scoring
     + Here, an article is scored based on its content, date, tags etc
   - Global scoring
@@ -29,6 +30,10 @@ Scoring is the most crucial process as there might be several articles containin
     
 #Usage
 ###Offline process
+To run all the spiders, run the run_spiders.sh file
+`source run_spiders.sh`
+
+or to run a particular spider
 `scrapy crawl <spider_name>`
 
 ***For example***
