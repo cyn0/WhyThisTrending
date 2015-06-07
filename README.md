@@ -37,13 +37,13 @@ Add your MongoDB params in *crawler/tutorial/settings.py* and to *online_process
     MONGODB_NAME = "WhyThisTrend"
     MONGODB_COLLECTION_NAME = "article"
 
-If your using twitter API to retrieve current trend, add your twitter keys to *online_process/Setting.py* file
+###Twitter
+If your using Twitter API to retrieve current trend, add your twitter keys to *online_process/Setting.py* file
     
     CONSUMER_KEY = 'XXXX'
     CONSUMER_SECRET ='YYYY'
     OAUTH_TOKEN = 'ZZZZ'
     OAUTH_TOKEN_SECRET = 'AAAA'
-
 
 
 #Usage
