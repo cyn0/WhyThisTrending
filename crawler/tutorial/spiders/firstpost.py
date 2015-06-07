@@ -1,14 +1,8 @@
 import scrapy
-from scrapy.selector import HtmlXPathSelector
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-from scrapy.http import Request
 from tutorial.items import newsItem
-from CalaisTopicClassifier import TopicClassifier
-
 from dateutil import parser
-# scrapy crawl quora -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log
-# scrapy crawl gen_spider -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log -s JOBDIR=crawls/tech-1
 
 class firstpost(CrawlSpider):
     name = "firstpost"
@@ -24,8 +18,7 @@ class firstpost(CrawlSpider):
     "http://tech.firstpost.com/"
 	
     ]
-    blacklists = ['http://techcrunch.com/contact/',"http://techcrunch.com/author/*","http://techcrunch.com/topic/.*","http://techcrunch.com/video/","http://techcrunch.com/event.*",
-	
+    blacklists = ['http://www.fakingnews.firstpost.com/*'
 	]
     rules = (Rule (SgmlLinkExtractor(deny=blacklists)
     , callback="parse_items", follow = True),

@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 ITEM_PIPELINES = {
     'tutorial.pipelines.dataProcessing' : 300,
     'tutorial.pipelines.urlProcessing' : 400,
-    'tutorial.pipelines.dbInsertion': 500 
+    'tutorial.pipelines.NOSQLDBInsertion': 500 
 }
 HTTP_PROXY = 'http://127.0.0.1:8123'
 
@@ -26,10 +26,16 @@ DB_USERNAME = "cyno"
 DB_PASSWORD = "XXXX"
 DB_NAME = "myDB"
 
+
+#mongodb credentials
+MONGO_URL = "mongodb://localhost:27017/"
+MONGODB_NAME = "WhyThisTrend"
+MONGODB_COLLECTION_NAME = "article"
+
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
 	'tutorial.random_user_agent.RotateUserAgentMiddleware' : 400,
-	'tutorial.proxy_setting.ProxyMiddleware' : 410,
+#	'tutorial.proxy_setting.ProxyMiddleware' : 410,
 	'scrapy.contrib.downloadermiddleware.robotstxt.RobotsTxtMiddleware' : 420
 }
 DEPTH_PRIORITY = 1

@@ -8,6 +8,7 @@
 #import json
 import sys; sys.path.append("/usr/local/lib/python2.7/site-packages")
 import MySQLdb
+from pymongo import MongoClient
 from scrapy import signals
 from scrapy.exceptions import DropItem
 import os
@@ -52,197 +53,13 @@ class CustomFilter(RFPDupeFilter):
 #            self.ids_seen.add(item['link'])
 #            return item
 
-class QuoraPipeline(object):
-    def __init__(self):
-            self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
-            # prepare a cursor object using cursor() method
-            self.cursor = self.db.cursor()
-            pass
-            
-    def process_item(self, item, spider):
-            if spider.name not in ['quora']:
-                return item 
-            title = " ".join(item['title'])
-            title = title.replace("'","")
-            topic = ",".join(item['topic']).encode('utf8')
-            link = str(item['link']).encode('utf8')
-            followers = " ".join(item['followers']).encode('utf8')
-            upvotes =  ",".join(item['upvotes']).encode('utf8')
-            sql = "INSERT INTO QUORA(TITLE,LINK, TOPICS, FOLLOWERS, UPVOTES) VALUES('" + title +"', '" +link+ "', '" +topic+ "','" + followers+ "', '" + upvotes + "')"
-            print title
-            print topic
-            print link
-            print followers
-            print upvotes
-            
-            try:
-                # Execute the SQL command
-                self.cursor.execute(sql)
-                # Commit your changes in the database
-                self.db.commit()
-            except Exception as e:
-                # Rollback in case there is any error
-                print "_____exception____"  
-                print e
-                self.db.rollback()
-            return item
-    def close_spider(self,spider):
-        pass
-
-class TechPipeline(object):
-    def __init__(self):
-            self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
-            # prepare a cursor object using cursor() method
-            self.cursor = self.db.cursor()
-            pass
-            
-    def process_item(self, item, spider):
-            if spider.name not in ['gen_spider']:
-                    return item 
-            print "____________Techcrunch_________________"*20;
-            #print title
-            title = item['title'].encode('ascii','ignore')
-            
-            topic = ",".join(item['topics']).encode('utf-8')
-            link = item['link']
-            imgUrl = item['imgUrl']
-            tag = ",".join(item['tags'])
-            docDate = item['docDate']
-            print docDate + "_______sql"
-            crawlsite = "Techcrunch"
-            sql = "INSERT INTO GENERAL(TITLE,LINK, TOPICS, TAGS,CRAWLEDSITE, IMGURL, DOCDATE) VALUES('" + title +"', '" +link+ "', '" +topic+ "','" + tag+ "','" + crawlsite + "', '" + imgUrl + "', '" + docDate + "')"
-            
-            try:
-                # Execute the SQL command
-                print sql
-                self.cursor.execute(sql)
-                # Commit your changes in the database
-                self.db.commit()
-            except Exception as e:
-                print "_____exception____"  
-                print e
-                self.db.rollback()
-            return item
-    def close_spider(self,spider):
-        pass
-
-
-
-
-class MashablePipeline(object):
-    def __init__(self):
-            self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
-            # prepare a cursor object using cursor() method
-            self.cursor = self.db.cursor()
-            pass
-            
-    def process_item(self, item, spider):
-            if spider.name not in ['mashable']:
-                    return item 
-            print "____________Mashable_________________"*20;
-            title = item['title'].encode('ascii','ignore')
-            
-            topic = ",".join(item['topics']).encode('utf-8')
-            link = item['link']
-            imgUrl = item['imgUrl']
-            tag = ",".join(item['tags'])
-            docDate = item['docDate']
-            print docDate + "_______sql"
-            crawlsite = "Mashable"
-            sql = "INSERT INTO GENERAL(TITLE,LINK, TOPICS, TAGS,CRAWLEDSITE, IMGURL, DOCDATE) VALUES('" + title +"', '" +link+ "', '" +topic+ "','" + tag+ "','" + crawlsite + "', '" + imgUrl + "', '" + docDate + "')"
-            
-            try:
-                # Execute the SQL command
-                print sql
-                self.cursor.execute(sql)
-                # Commit your changes in the database
-                self.db.commit()
-            except Exception as e:
-                print "_____exception____"  
-                print e
-                self.db.rollback()
-            return item
-    def close_spider(self,spider):
-        pass
-
-
-
-
-class EngadgetPipeline(object):
-    def __init__(self):
-            self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
-            self.cursor = self.db.cursor()
-            pass
-            
-    def process_item(self, item, spider):
-            if spider.name not in ['engadget']:
-                    return item 
-            print "_____________________________________-Engadget____________________________"
-            title = item['title'].encode('ascii','ignore')
-            
-            topic = ",".join(item['topics']).encode('utf-8')
-            link = item['link']
-            imgUrl = item['imgUrl']
-            tag = ",".join(item['tags'])
-            docDate = item['docDate']
-            source = item['source']
-            sourceUrl = item['sourceUrl']
-            crawledsite = "Engadget"
-            print docDate + "_______sql"
-            sql = "INSERT INTO GENERAL(TITLE,LINK, TOPICS, TAGS,CRAWLEDSITE, SOURCE,SOURCELINK,IMGURL, DOCDATE) VALUES('" + title +"', '" +link+ "', '" +topic+ "','" + tag + "', '" + crawledsite+ "', '" + source + "', '" + sourceUrl +  "', '" + imgUrl + "', '" + docDate + "')"
-            
-            try:
-                # Execute the SQL command
-                print sql
-                self.cursor.execute(sql)
-                # Commit your changes in the database
-                self.db.commit()
-            except Exception as e:
-                print "_____exception____"  
-                print e
-                self.db.rollback()
-            return item
-    def close_spider(self,spider):
-        pass
-
-"""
-class gnewsPipeline(object):
-    def __init__(self):
-            self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
-            # prepare a cursor object using cursor() method
-            self.cursor = self.db.cursor()
-            pass
-            
-    def process_item(self, item, spider):
-            if spider.name not in ['gnewsj']:
-                return item 
-            title = item['title'].encode('ascii','ignore')
-            topic = ",".join(item['topics']).encode('utf-8')
-            link = item['link']
-            tag = ",".join(item['tags'])
-            docDate = item['docDate']
-            print docDate + "_______"
-            sql = "INSERT INTO GNEWS(TITLE,LINK, TOPICS, TAGS,DOCDATE) VALUES('" + title +"', '" +link+ "', '" +topic+ "','" + tag+ "', '" + docDate + "')"
-            
-            try:
-                print sql
-                self.cursor.execute(sql)
-                self.db.commit()
-            except Exception as e:
-                print "_____exception____"  
-                print e
-                self.db.rollback()
-            return item
-    def close_spider(self,spider):
-        pass
-"""
 
 class dataProcessing(object):
     def __init__(self):
             pass
             
     def process_item(self, item, spider):
-            if spider.name not in ['thehindu', 'firstpost', 'dnaindia', 'indiatoday']:
+            if spider.name not in ['thehindu', 'firstpost', 'dnaindia', 'indiatoday', 'theguardian']:
                     return item
                     
             #for now, fixing single and double quotes problem by removing them :/
@@ -270,7 +87,7 @@ class urlProcessing(object):
             return item
 
             
-class dbInsertion(object):
+class SQLDBInsertion(object):
     def __init__(self):
             self.db = MySQLdb.connect(settings.get('DB_HOST'),settings.get('DB_USERNAME'),settings.get('DB_PASSWORD'),settings.get('DB_NAME') ) 
             # prepare a cursor object using cursor() method
@@ -299,6 +116,35 @@ class dbInsertion(object):
                 print "_____exception____"  
                 print e
                 self.db.rollback()
+            return item
+    def close_spider(self,spider):
+        pass
+
+class NOSQLDBInsertion(object):
+    def __init__(self):
+            client = MongoClient(settings.get('MONGO_URL'))
+            db = client[settings.get('MONGODB_NAME')]
+            self.collection = db[settings.get('MONGODB_COLLECTION_NAME')]
+            pass
+            
+    def process_item(self, item, spider):
+            print "*"*50
+            print item['title']
+            print item['url']
+            print item['crawled_site']
+            print item['content']
+            print item['tags']
+            print item['article_time'] 
+            print "*"*50          
+            document = {
+                'title' : item['title'],
+                'url': item['url'],
+                'crawled_site' : item['crawled_site'],
+                'content' : item['content'],
+                'tags' : item['tags'],
+                'article_time' : item['article_time']
+            }
+            self.collection.insert_one(document)
             return item
     def close_spider(self,spider):
         pass

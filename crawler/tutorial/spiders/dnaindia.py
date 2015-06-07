@@ -1,14 +1,8 @@
 import scrapy
-from scrapy.selector import HtmlXPathSelector
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-from scrapy.http import Request
 from tutorial.items import newsItem
-from CalaisTopicClassifier import TopicClassifier
-
 from dateutil import parser
-# scrapy crawl quora -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log
-# scrapy crawl gen_spider -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log -s JOBDIR=crawls/tech-1
 
 class dnaindia(CrawlSpider):
     name = "dnaindia"
@@ -19,15 +13,9 @@ class dnaindia(CrawlSpider):
     "http://www.dnaindia.com/world",
     "http://www.dnaindia.com/sport",
     "http://www.dnaindia.com/scitech",
-    "http://www.dnaindia.com/entertainment"
-    #"http://www.thehindu.com/business/",
-    #"http://www.thehindu.com/sport/",
-    #"http://www.thehindu.com/sci-tech/",
-    #"http://www.thehindu.com/entertainment/"
-	
+    "http://www.dnaindia.com/entertainment"	
     ]
-    blacklists = ['http://techcrunch.com/contact/',"http://techcrunch.com/author/*","http://techcrunch.com/topic/.*","http://techcrunch.com/video/","http://techcrunch.com/event.*",
-	
+    blacklists = [
 	]
     rules = (Rule (SgmlLinkExtractor(deny=blacklists)
     , callback="parse_items", follow = True),
@@ -57,18 +45,20 @@ class dnaindia(CrawlSpider):
             print list_article_time
             article_time = ''.join(list_article_time)
             #article_time = article_time.encode('utf8')
+            try:    
+                print str(parser.parse(article_time,fuzzy=True))
+                print "\n"
                 
-            print str(parser.parse(article_time,fuzzy=True))
-            print "\n"
-            
-            
-            item = newsItem()
-            item['title'] = response.xpath('//title/text()').extract()[0].encode('utf8')
-            item['url'] = response.url
-            item['crawled_site'] = "dnaindia"
-            item['content'] = article_content
-            item['tags'] = " "
-            item['article_time'] = str(parser.parse(article_time))
-            return item
+                
+                item = newsItem()
+                item['title'] = response.xpath('//title/text()').extract()[0].encode('utf8')
+                item['url'] = response.url
+                item['crawled_site'] = "dnaindia"
+                item['content'] = article_content
+                item['tags'] = " "
+                item['article_time'] = str(parser.parse(article_time,fuzzy=True))
+                return item
+            except:
+                print "error for", article_time
             
       

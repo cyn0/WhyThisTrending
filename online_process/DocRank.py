@@ -1,6 +1,6 @@
 from __future__ import division
 from collections import Counter
-#import math
+from Util import get_term_frequency
 #from Matrix import RankMatrix
 
 #doc_rank_matrix = None
@@ -10,6 +10,7 @@ def calculate_doc_rank(newsitems):
     total_doc_values = 0.0
     total_counts = Counter()
     for newsitem in newsitems:
+        newsitem.counts = get_term_frequency(newsitem.content)
         total_counts += newsitem.counts
     #print total_counts
     for newsitem in newsitems:

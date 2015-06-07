@@ -1,16 +1,10 @@
 import scrapy
-from scrapy.selector import HtmlXPathSelector
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-from scrapy.http import Request
 from tutorial.items import newsItem
-from CalaisTopicClassifier import TopicClassifier
-
 from dateutil import parser
-# scrapy crawl quora -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log
-# scrapy crawl gen_spider -s DEPTH_LIMIT=1 -s LOG_FILE=newscrapy.log -s JOBDIR=crawls/tech-1
 
-class test_spider(CrawlSpider):
+class thehindu(CrawlSpider):
     name = "thehindu"
     allowed_domains = ["thehindu.com"]
     start_urls = [
@@ -22,8 +16,7 @@ class test_spider(CrawlSpider):
 	"http://www.thehindu.com/news/",
     
     ]
-    blacklists = ['http://techcrunch.com/contact/',"http://techcrunch.com/author/*","http://techcrunch.com/topic/.*","http://techcrunch.com/video/","http://techcrunch.com/event.*",
-	
+    blacklists = [
 	]
     rules = (Rule (SgmlLinkExtractor(deny=blacklists)
     , callback="parse_items", follow = True),
@@ -64,38 +57,3 @@ class test_spider(CrawlSpider):
             item['tags'] = article_keywords
             item['article_time'] = str(parser.parse(article_time))
             return item
-            
-      
-    """
-     topic1 = topics.xpath('.//img/@src').extract()
-     if "/2015/" in url:
-        #arr = url.split("/")
-        #print "year :", arr[3]
-        #print "month :", arr[4]
-        #print "date ", arr[5]  
-        obj = TopicClassifier()
-        data = obj.getTopics(response.url)
-        item = CommonItem()
-        item['docDate'] = data['docDate']
-        item['link'] = url
-        item['topics'] = data['topics']
-        item['tags'] = data['tags']
-        title = response.xpath('//title/text()').extract()[0]
-        title = title.replace("'","")
-        title = title.replace("  |  TechCrunch","")
-
-        item['title'] = title
-
-        articleWindow = response.xpath('//div[contains(@class, "article-entry text")]')
-        imgurlList = topics.xpath('.//img/@src').extract()
-        imgurl = ""
-        if len(imgurlList) >= 2:
-            imgurl = imgurlList[1]
-        elif len(imgurlList) >= 1:
-            imgurl = imgurlList[0]
-
-        item['imgUrl'] = imgurl
-
-        print item['title']
-        return item         
-    """
