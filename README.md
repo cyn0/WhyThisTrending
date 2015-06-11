@@ -63,6 +63,10 @@ or to run a particular spider
 All settings parameters are optional.
 
 ###Online process
+To get results for current trends in Twitter
 `python WhyTheTrend.py`
+
+To get results for a particular trend
+`python WhyTheTrend.py "#PakMisfires"`
 
 [Algorithms of the Intelligent Web]:http://www.amazon.in/Algorithms-Intelligent-Web-Haralambos-Marmanis/dp/1933988665
