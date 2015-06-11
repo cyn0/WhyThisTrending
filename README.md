@@ -13,14 +13,14 @@ OUTPUT :
 
 #Methodology
 ###Offline process - Crawling
-Scrapy tool is used to crawl News sites to extract content and other information from the site. The extracted contents are stored in MongoDB.
+[Scrapy tool] is used to crawl News sites to extract content and other information from the site. The extracted contents are stored in **MongoDB**.
 
 ###Online process - Searching and scoring
 Trending keywords are retrieved from social media(Twitter, Google trends) and articles having those key-words are fetched.
 
 Scoring is the most crucial process as there might be several articles containing the key-words.
   * MongoDB scoring
-    + Text search is done for the keywords, and MongoDB returns document’s score associated with the text search.
+    + [Text search] is done for the keywords, and MongoDB returns document’s score associated with the text search.
   * Local scoring
     + Here, an article is scored based on its content, date, tags etc
   - Global scoring
@@ -63,10 +63,13 @@ or to run a particular spider
 All settings parameters are optional.
 
 ###Online process
-To get results for current trends in Twitter
+To get results for current trends in [Twitter]
 `python WhyTheTrend.py`
 
 To get results for a particular trend
 `python WhyTheTrend.py "#PakMisfires"`
 
 [Algorithms of the Intelligent Web]:http://www.amazon.in/Algorithms-Intelligent-Web-Haralambos-Marmanis/dp/1933988665
+[Scrapy tool]:http://scrapy.org/
+[Twitter]:https://twitter.com
+[Text search]:http://docs.mongodb.org/manual/reference/operator/query/text/
