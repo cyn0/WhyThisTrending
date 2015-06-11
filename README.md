@@ -26,7 +26,8 @@ Scoring is the most crucial process as there might be several articles containin
   - Global scoring
     + Finding importance of an article across all the articles fetched.
     + For example, in the last three days there might be several articles about Mr.Modi but we are interested in the `special event` that made the people to talk about him(here local scoring alone won't be helpful). Our assumption is that `special event` will be in the most number of articles.
-    + [Algorithms of the Intelligent Web]
+
+Reference : [Algorithms of the Intelligent Web]    
 
 #Initial configurations
 ###MongoDB
