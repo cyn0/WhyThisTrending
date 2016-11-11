@@ -1,6 +1,6 @@
 #Why is this trending
 
-The objective of `WhyThisTrending` project is to find why a particular term(hash tag) is trending in the social media.
+The objective of `WhyThisTrending` project is to find why a particular search term(hash tag) is trending in the social media like Twitter, Facebook etc.
 
 **This project is in very intial stage of development**
 
